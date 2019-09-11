@@ -1,0 +1,22 @@
+sudo: required
+services: 
+  - docker
+
+before_install:
+  - docker build -t jmehitch/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true jmehitch/react-test npm test
+
+after_success: 
+  - docker-build -t jmehitch/multi-client ./client
+  - docker-build -t jmehitch/multi-nginx ./nginx
+  - docker-build -t jmehitch/multi-server ./server
+  - docker-build -t jmehitch/multi-worker ./worker
+  # Login to Docker CLI
+  - echo "$DOCKER_PASS" | docker login -u "$DOCKER_ID" --password-stdin
+  # Push images to Docker Hub
+  - docker push jmehitch/multi-client
+  - docker push jmehitch/multi-nginx
+  - docker push jmehitch/multi-server
+  - docker push jmehitch/multi-worker
