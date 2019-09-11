@@ -9,10 +9,10 @@ script:
   - docker run -e CI=true jmehitch/react-test npm test
 
 after_success: 
-  - docker-build -t jmehitch/multi-client ./client
-  - docker-build -t jmehitch/multi-nginx ./nginx
-  - docker-build -t jmehitch/multi-server ./server
-  - docker-build -t jmehitch/multi-worker ./worker
+  - docker build -t jmehitch/multi-client ./client
+  - docker build -t jmehitch/multi-nginx ./nginx
+  - docker build -t jmehitch/multi-server ./server
+  - docker build -t jmehitch/multi-worker ./worker
   # Login to Docker CLI
   - echo "$DOCKER_PASS" | docker login -u "$DOCKER_ID" --password-stdin
   # Push images to Docker Hub
