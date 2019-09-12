@@ -1,0 +1,10 @@
+Postgres RDS: 
+DB instance identifier = multi-docker-postgres
+Master username = postgres
+Master password = postgres_password 
+Inital database name = fibvalues
+DB port = 5432
+----
+Redis EC:
+Name: multi-docker-redis
+Port: 6379
